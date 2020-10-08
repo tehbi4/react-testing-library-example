@@ -17,4 +17,10 @@ describe('<Button />', () => {
     userEvent.click(getByText('Click me'));
     expect(mockClickHandler).toHaveBeenCalledTimes(1);
   });
+
+  test('has white text', () => {
+    const { getByRole } = render(<Button onClick={jest.fn()}>Click me</Button>);
+    const button = getByRole('button');
+    expect(button).toHaveStyle('color: white;');
+  });
 });
