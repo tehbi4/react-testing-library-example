@@ -63,4 +63,16 @@ describe('<App />', () => {
       expect(screen.getByText(/failed/i)).toBeInTheDocument();
     });
   });
+
+  test('hides greeting on second click', async () => {
+    const button = screen.getByRole('button');
+    button.click();
+    await waitFor(() => {
+      expect(screen.getByText('Hello, Aleksey!')).toBeInTheDocument();
+    });
+    button.click();
+    await waitFor(() => {
+      expect(screen.queryByText('Hello, Aleksey!')).not.toBeInTheDocument();
+    });
+  });
 });
