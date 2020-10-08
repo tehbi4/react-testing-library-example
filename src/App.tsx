@@ -29,6 +29,11 @@ export const App: React.FC = () => {
   });
 
   const greetUser = async () => {
+    // if user name is fetching do nothing
+    if (user.status === FetchStatus.Loading) {
+      return;
+    }
+
     // just toogle greeting if user name has already been loaded
     if (user.status === FetchStatus.Success) {
       showGreeting(!isGreetingShown);
@@ -50,6 +55,7 @@ export const App: React.FC = () => {
     <div className={styles.App}>
       <Button onClick={greetUser}>Click me</Button>
       {isGreetingShown && <Greeting userName={user.name} />}
+      {user.status === FetchStatus.Fail && <div>Failed to load username</div>}
     </div>
   );
 };
